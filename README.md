@@ -15,6 +15,11 @@ This project was built to deliver a production-style storefront experience for a
 
 > Live Demo: `https://your-vercel-domain.vercel.app` (replace with deployed URL)
 
+## Final Submission Links
+
+- GitHub Repo URL: `PASTE_YOUR_GITHUB_REPO_LINK_HERE`
+- Vercel Live URL: `PASTE_YOUR_VERCEL_LIVE_LINK_HERE`
+
 ## Key features
 
 - BetterAuth integration with:

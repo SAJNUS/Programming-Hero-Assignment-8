@@ -1,11 +1,30 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { navigationLinks } from "../lib/site-config";
-import { useSession } from "../lib/auth-client";
+import { signOut, useSession } from "../lib/auth-client";
 
 export default function Navbar() {
+    const router = useRouter();
     const { data: session } = useSession();
+    const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+    async function handleLogout() {
+        setIsLoggingOut(true);
+        await signOut({
+            fetchOptions: {
+                onSuccess: () => {
+                    router.push("/");
+                },
+                onError: () => {
+                    setIsLoggingOut(false);
+                },
+            },
+        });
+        setIsLoggingOut(false);
+    }
 
     const userInitials = session?.user?.name
         ? session.user.name
@@ -68,12 +87,24 @@ export default function Navbar() {
                                         </Link>
                                     </>
                                 ) : (
-                                    <Link
-                                        href="/profile"
-                                        className="btn btn-primary btn-sm col-span-2"
-                                    >
-                                        My Profile
-                                    </Link>
+                                    <>
+                                        <Link
+                                            href="/profile"
+                                            className="btn btn-primary btn-sm"
+                                        >
+                                            My Profile
+                                        </Link>
+                                        <button
+                                            type="button"
+                                            onClick={handleLogout}
+                                            disabled={isLoggingOut}
+                                            className="btn btn-outline btn-sm"
+                                        >
+                                            {isLoggingOut
+                                                ? "Logging..."
+                                                : "Logout"}
+                                        </button>
+                                    </>
                                 )}
                             </li>
                         </ul>
@@ -114,15 +145,25 @@ export default function Navbar() {
 
                 <div className="navbar-end gap-2">
                     {session?.user ? (
-                        <Link
-                            href="/profile"
-                            className="btn btn-ghost btn-circle tooltip tooltip-bottom shrink-0"
-                            data-tip={session.user.email}
-                        >
-                            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-sm font-black text-white">
-                                {userInitials}
-                            </div>
-                        </Link>
+                        <>
+                            <Link
+                                href="/profile"
+                                className="btn btn-ghost btn-circle tooltip tooltip-bottom shrink-0"
+                                data-tip={session.user.email}
+                            >
+                                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-sm font-black text-white">
+                                    {userInitials}
+                                </div>
+                            </Link>
+                            <button
+                                type="button"
+                                onClick={handleLogout}
+                                disabled={isLoggingOut}
+                                className="btn btn-outline btn-sm rounded-full px-4 text-sm sm:btn-md"
+                            >
+                                {isLoggingOut ? "Logging out..." : "Logout"}
+                            </button>
+                        </>
                     ) : (
                         <>
                             <Link
