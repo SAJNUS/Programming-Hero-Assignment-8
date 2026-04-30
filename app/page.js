@@ -1,6 +1,6 @@
 import Link from "next/link";
 import BrandCard from "../components/brand-card";
-import HeroBanner from "../components/hero-banner";
+import AnimatedHero from "../components/animated-hero";
 import ProductCard from "../components/product-card";
 import SectionHeading from "../components/section-heading";
 import TipCard from "../components/tip-card";
@@ -14,7 +14,7 @@ import { featuredProducts } from "../lib/catalog";
 export default function HomePage() {
     return (
         <div className="space-y-16">
-            <HeroBanner />
+            <AnimatedHero />
 
             <section className="grid gap-4 md:grid-cols-3">
                 {featuredHighlights.map((item) => (

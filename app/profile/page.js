@@ -84,70 +84,113 @@ export default function ProfilePage() {
                 description="Welcome back! Manage your SunCart account and preferences."
             />
 
-            <section className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-                <article className="rounded-[2rem] border border-base-300/70 bg-base-100 p-6 shadow-sm">
-                    <div className="flex items-center gap-4">
-                        {user.image ? (
-                            <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-2xl">
-                                <Image
-                                    src={user.image}
-                                    alt={user.name || "User profile"}
-                                    fill
-                                    className="object-cover"
-                                />
-                            </div>
-                        ) : (
-                            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-accent text-2xl font-black text-white shrink-0">
-                                {userInitials}
-                            </div>
-                        )}
-                        <div>
-                            <p className="text-xl font-black text-neutral">
-                                {user.name || user.email}
+            {/* Main Profile Card */}
+            <article className="rounded-[2rem] border border-base-300/70 bg-gradient-to-br from-base-100 to-base-100 p-6 shadow-sm sm:p-8 overflow-hidden relative">
+                {/* Decorative gradient background */}
+                <div className="absolute -right-32 -top-32 w-64 h-64 bg-gradient-to-br from-primary/5 to-accent/5 rounded-full blur-3xl" />
+
+                <div className="relative z-10">
+                    {/* Profile Header with Photo and Basic Info */}
+                    <div className="flex flex-col sm:flex-row sm:items-start gap-6 pb-6 border-b border-base-300/50">
+                        {/* Avatar */}
+                        <div className="flex-shrink-0">
+                            {user.image ? (
+                                <div className="relative h-24 w-24 overflow-hidden rounded-3xl ring-4 ring-primary/20 shadow-md">
+                                    <Image
+                                        src={user.image}
+                                        alt={user.name || "User profile"}
+                                        fill
+                                        className="object-cover"
+                                    />
+                                </div>
+                            ) : (
+                                <div className="flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-primary to-accent text-4xl font-black text-white ring-4 ring-primary/20 shadow-md">
+                                    {userInitials}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* User Info */}
+                        <div className="flex-1">
+                            <h2 className="text-3xl font-black text-neutral">
+                                {user.name || "SunCart User"}
+                            </h2>
+                            <p className="mt-2 text-base-content/70">
+                                {user.email}
                             </p>
-                            <p className="text-sm text-base-content/65">
-                                Verified account
+                            <div className="mt-4 flex flex-wrap gap-2">
+                                <span className="inline-block px-3 py-1 rounded-full bg-success/10 text-success text-xs font-semibold">
+                                    ✓ Verified
+                                </span>
+                                <span className="inline-block px-3 py-1 rounded-full bg-info/10 text-info text-xs font-semibold">
+                                    Active Member
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Account Information Section */}
+                    <div className="mt-6 grid gap-4 sm:grid-cols-3">
+                        <div className="rounded-2xl bg-base-100/50 border border-base-300/30 p-4">
+                            <p className="text-xs font-semibold uppercase tracking-wider text-base-content/60">
+                                Email Address
+                            </p>
+                            <p className="mt-2 text-sm font-semibold text-neutral break-all">
+                                {user.email}
+                            </p>
+                        </div>
+                        <div className="rounded-2xl bg-base-100/50 border border-base-300/30 p-4">
+                            <p className="text-xs font-semibold uppercase tracking-wider text-base-content/60">
+                                Member Since
+                            </p>
+                            <p className="mt-2 text-sm font-semibold text-neutral">
+                                {new Date(user.createdAt).toLocaleDateString(
+                                    "en-US",
+                                    {
+                                        year: "numeric",
+                                        month: "short",
+                                        day: "numeric",
+                                    },
+                                )}
+                            </p>
+                        </div>
+                        <div className="rounded-2xl bg-base-100/50 border border-base-300/30 p-4">
+                            <p className="text-xs font-semibold uppercase tracking-wider text-base-content/60">
+                                Account Status
+                            </p>
+                            <p className="mt-2 text-sm font-semibold text-success">
+                                Active & Protected
                             </p>
                         </div>
                     </div>
 
-                    <div className="mt-6 space-y-3 text-sm text-base-content/75">
-                        <p>
-                            <span className="font-semibold text-neutral">
-                                Email:
-                            </span>{" "}
-                            {user.email}
-                        </p>
-                        <p>
-                            <span className="font-semibold text-neutral">
-                                Member since:
-                            </span>{" "}
-                            {new Date(user.createdAt).toLocaleDateString()}
-                        </p>
-                        <p>
-                            <span className="font-semibold text-neutral">
-                                Status:
-                            </span>{" "}
-                            <span className="inline-block px-2 py-1 rounded-full bg-success/10 text-success text-xs font-semibold">
-                                Active
-                            </span>
-                        </p>
+                    {/* Action Buttons */}
+                    <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                        <button
+                            onClick={() => router.push("/profile/update")}
+                            className="btn btn-primary rounded-full px-8 shadow-soft hover:shadow-md transition-shadow"
+                        >
+                            Edit Profile
+                        </button>
+                        <button
+                            onClick={handleLogout}
+                            className="btn btn-outline rounded-full px-8"
+                        >
+                            Sign Out
+                        </button>
                     </div>
+                </div>
+            </article>
 
-                    <button
-                        onClick={handleLogout}
-                        className="btn btn-outline mt-6 w-full rounded-full"
-                    >
-                        Sign out
-                    </button>
-                </article>
-
+            {/* Features Grid */}
+            <section className="grid gap-6 lg:grid-cols-2">
+                {/* Product Features */}
                 <article className="rounded-[2rem] border border-base-300/70 bg-gradient-to-br from-secondary/10 to-primary/10 p-6 shadow-sm">
                     <p className="text-sm font-semibold uppercase tracking-[0.28em] text-secondary">
-                        Available now
+                        Available Now
                     </p>
                     <h2 className="mt-3 text-2xl font-black text-neutral">
-                        Explore product details
+                        Explore Product Details
                     </h2>
                     <p className="mt-3 text-sm leading-6 text-base-content/70">
                         Now that you're logged in, you can view full product
@@ -173,17 +216,59 @@ export default function ProfilePage() {
                         href="/products"
                         className="btn btn-primary mt-6 rounded-full px-6 shadow-soft"
                     >
-                        Browse products
+                        Browse Products
                     </Link>
+                </article>
+
+                {/* Quick Stats */}
+                <article className="rounded-[2rem] border border-base-300/70 bg-base-100 p-6 shadow-sm">
+                    <p className="text-sm font-semibold uppercase tracking-[0.28em] text-accent">
+                        Account Stats
+                    </p>
+                    <h2 className="mt-3 text-2xl font-black text-neutral">
+                        Your Profile
+                    </h2>
+
+                    <div className="mt-6 space-y-4">
+                        <div className="flex items-center justify-between py-3 border-b border-base-300/30">
+                            <span className="text-base-content/70">
+                                Account Age
+                            </span>
+                            <span className="font-semibold text-neutral">
+                                {Math.floor(
+                                    (new Date() - new Date(user.createdAt)) /
+                                        (1000 * 60 * 60 * 24),
+                                )}{" "}
+                                days
+                            </span>
+                        </div>
+                        <div className="flex items-center justify-between py-3 border-b border-base-300/30">
+                            <span className="text-base-content/70">
+                                Account Type
+                            </span>
+                            <span className="font-semibold text-success">
+                                Premium
+                            </span>
+                        </div>
+                        <div className="flex items-center justify-between py-3">
+                            <span className="text-base-content/70">
+                                Verification
+                            </span>
+                            <span className="font-semibold text-success">
+                                Verified
+                            </span>
+                        </div>
+                    </div>
                 </article>
             </section>
 
+            {/* Coming Soon Features */}
             <article className="rounded-[2rem] border border-base-300/70 bg-base-100 p-6 shadow-sm">
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-secondary">
-                    Coming soon
+                    Coming Soon
                 </p>
                 <h3 className="mt-3 text-xl font-black text-neutral">
-                    Future profile features
+                    Future Profile Features
                 </h3>
                 <div className="mt-6 grid gap-4 sm:grid-cols-2">
                     {[
@@ -200,7 +285,7 @@ export default function ProfilePage() {
                     ].map(([title, desc]) => (
                         <div
                             key={title}
-                            className="rounded-2xl border border-base-300/70 bg-base-100 p-4"
+                            className="rounded-2xl border border-base-300/70 bg-base-100 p-4 hover:border-base-300 transition-colors"
                         >
                             <p className="font-bold text-neutral">{title}</p>
                             <p className="mt-2 text-sm text-base-content/70">
