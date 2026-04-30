@@ -48,8 +48,8 @@ function ProductDetailsContent() {
                         Product not found
                     </h1>
                     <p className="max-w-2xl text-base text-base-content/70">
-                        The product you're looking for doesn't exist in our
-                        catalog. Let's get you back on track.
+                        The product you&apos;re looking for doesn&apos;t exist
+                        in our catalog. Let&apos;s get you back on track.
                     </p>
                     <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
                         <Link
@@ -84,7 +84,7 @@ function ProductDetailsContent() {
             <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
                 <div className="space-y-6">
                     <div className="overflow-hidden rounded-[2rem] border border-base-300/70 bg-gradient-to-br from-[#fff4d7] via-[#fffdfa] to-[#dffaf4] p-8 shadow-soft">
-                        <div className="flex h-96 items-center justify-center rounded-[1.5rem] border border-white/70 bg-white/50 p-6 shadow-inner backdrop-blur-sm">
+                        <div className="flex h-72 items-center justify-center rounded-[1.5rem] border border-white/70 bg-white/50 p-6 shadow-inner backdrop-blur-sm sm:h-96">
                             <Image
                                 src={product.image}
                                 alt={product.name}

@@ -101,6 +101,7 @@ export default function ProfilePage() {
                                         alt={user.name || "User profile"}
                                         fill
                                         className="object-cover"
+                                        unoptimized
                                     />
                                 </div>
                             ) : (
@@ -193,8 +194,8 @@ export default function ProfilePage() {
                         Explore Product Details
                     </h2>
                     <p className="mt-3 text-sm leading-6 text-base-content/70">
-                        Now that you're logged in, you can view full product
-                        details for any item in our catalog.
+                        Now that you&apos;re logged in, you can view full
+                        product details for any item in our catalog.
                     </p>
 
                     <ul className="mt-5 space-y-3 text-sm leading-6 text-base-content/75">

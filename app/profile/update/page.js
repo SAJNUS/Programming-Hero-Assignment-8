@@ -85,7 +85,7 @@ function UpdateProfileContent() {
                 description="Edit your profile information and picture."
             />
 
-            <article className="rounded-[2rem] border border-base-300/70 bg-base-100 p-6 shadow-sm sm:p-8 max-w-2xl">
+            <article className="mx-auto max-w-2xl rounded-[2rem] border border-base-300/70 bg-base-100 p-6 shadow-sm sm:p-8">
                 {/* Success Toast */}
                 {success && (
                     <div className="mb-6 rounded-2xl border border-success/30 bg-success/10 p-4 text-success">
@@ -113,7 +113,7 @@ function UpdateProfileContent() {
                             Profile Photo Preview
                         </label>
                         <div className="rounded-2xl border border-base-300/70 p-4 bg-base-100">
-                            <div className="flex items-center gap-6">
+                            <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
                                 {previewImage ? (
                                     <div className="relative h-24 w-24 overflow-hidden rounded-2xl ring-4 ring-primary/20 flex-shrink-0">
                                         <Image
@@ -121,6 +121,7 @@ function UpdateProfileContent() {
                                             alt="Preview"
                                             fill
                                             className="object-cover"
+                                            unoptimized
                                             onError={() => setPreviewImage("")}
                                         />
                                     </div>

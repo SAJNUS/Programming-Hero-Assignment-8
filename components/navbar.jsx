@@ -90,7 +90,7 @@ export default function Navbar() {
                             <span className="text-lg font-black tracking-tight text-neutral">
                                 SunCart
                             </span>
-                            <span className="text-xs font-medium uppercase tracking-[0.25em] text-secondary">
+                            <span className="hidden text-xs font-medium uppercase tracking-[0.25em] text-secondary sm:block">
                                 Summer essentials
                             </span>
                         </span>
@@ -116,7 +116,7 @@ export default function Navbar() {
                     {session?.user ? (
                         <Link
                             href="/profile"
-                            className="btn btn-ghost btn-circle tooltip tooltip-bottom"
+                            className="btn btn-ghost btn-circle tooltip tooltip-bottom shrink-0"
                             data-tip={session.user.email}
                         >
                             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-sm font-black text-white">
@@ -127,13 +127,13 @@ export default function Navbar() {
                         <>
                             <Link
                                 href="/login"
-                                className="btn btn-ghost btn-sm rounded-full px-5 text-sm sm:btn-md"
+                                className="btn btn-ghost btn-sm rounded-full px-3 text-sm sm:px-5 sm:btn-md"
                             >
                                 Login
                             </Link>
                             <Link
                                 href="/register"
-                                className="btn btn-primary btn-sm rounded-full px-5 text-sm shadow-soft sm:btn-md"
+                                className="btn btn-primary btn-sm rounded-full px-3 text-sm shadow-soft sm:px-5 sm:btn-md"
                             >
                                 Register
                             </Link>

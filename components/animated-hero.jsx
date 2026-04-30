@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Lottie from "lottie-react";
 
 // Simple sun/summer animation
@@ -84,32 +85,43 @@ const sunAnimation = {
 
 export default function AnimatedHero() {
     return (
-        <div className="relative rounded-[2rem] border border-base-300/70 bg-gradient-to-br from-yellow-100 to-orange-50 p-8 shadow-sm sm:p-12 overflow-hidden">
+        <section className="relative overflow-hidden rounded-[2rem] border border-base-300/70 bg-gradient-to-br from-yellow-100 to-orange-50 p-6 shadow-sm sm:p-10 lg:p-12">
             {/* Animated Lottie sun */}
-            <div className="absolute -right-12 -top-12 opacity-30">
+            <div className="pointer-events-none absolute -right-10 -top-10 opacity-25 sm:-right-12 sm:-top-12 sm:opacity-30">
                 <Lottie
                     animationData={sunAnimation}
                     loop={true}
                     autoplay={true}
-                    style={{ width: 300, height: 300 }}
+                    className="h-44 w-44 sm:h-64 sm:w-64 lg:h-72 lg:w-72"
                 />
             </div>
 
             {/* Content */}
-            <div className="relative z-10 max-w-md">
+            <div className="relative z-10 max-w-xl">
                 <p className="text-sm font-semibold uppercase tracking-[0.28em] text-secondary animate-fade-in">
                     Welcome to SunCart
                 </p>
-                <h1 className="mt-4 text-4xl font-black text-neutral animate-fade-in-delay">
+                <h1 className="mt-4 text-3xl font-black text-neutral animate-fade-in-delay sm:text-4xl lg:text-5xl">
                     Summer Essentials, Delivered
                 </h1>
-                <p className="mt-3 text-lg leading-7 text-base-content/70 animate-fade-in-delay-2">
+                <p className="mt-3 text-base leading-7 text-base-content/70 animate-fade-in-delay-2 sm:text-lg">
                     Stay cool, stay protected, and enjoy the season with our
                     premium collection of summer must-haves.
                 </p>
-                <button className="btn btn-primary mt-6 rounded-full px-8 shadow-soft hover:shadow-md transition-shadow">
-                    Start shopping
-                </button>
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                    <Link
+                        href="/products"
+                        className="btn btn-primary rounded-full px-8 shadow-soft transition-shadow hover:shadow-md"
+                    >
+                        Start shopping
+                    </Link>
+                    <Link
+                        href="/profile"
+                        className="btn btn-ghost rounded-full px-8"
+                    >
+                        My account
+                    </Link>
+                </div>
             </div>
 
             <style jsx>{`
@@ -153,6 +165,6 @@ export default function AnimatedHero() {
                     animation: fadeInDelay2 0.6s ease-out 0.2s both;
                 }
             `}</style>
-        </div>
+        </section>
     );
 }
