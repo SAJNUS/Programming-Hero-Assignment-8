@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { getAuthState, setAuthRedirect } from "../lib/auth";
+import { useSession } from "../lib/auth-client";
+import { setAuthRedirect } from "../lib/auth-client";
 
 /**
  * ProtectedRoute wrapper component.
- * Checks if user is authenticated. If not, redirects to login with a stored redirect URL.
+ * Checks if user is authenticated using BetterAuth. If not, redirects to login.
  *
  * Usage:
  *   <ProtectedRoute>
@@ -16,26 +17,28 @@ import { getAuthState, setAuthRedirect } from "../lib/auth";
 export default function ProtectedRoute({ children }) {
     const router = useRouter();
     const pathname = usePathname();
+    const { data: session, isPending } = useSession();
     const [isAuthorized, setIsAuthorized] = useState(false);
-    const [isChecking, setIsChecking] = useState(true);
 
     useEffect(() => {
-        const authState = getAuthState();
+        // While session is being checked, don't redirect yet
+        if (isPending) {
+            return;
+        }
 
-        if (authState.isLoggedIn) {
+        // If user is authenticated, allow access
+        if (session?.user) {
             setIsAuthorized(true);
-            setIsChecking(false);
         } else {
             // Store the current URL so we can redirect back after login
             setAuthRedirect(pathname);
-            setIsChecking(false);
             // Redirect to login
             router.push("/login");
         }
-    }, [pathname, router]);
+    }, [session, isPending, pathname, router]);
 
     // While checking auth, show a loading state
-    if (isChecking) {
+    if (isPending) {
         return (
             <div className="flex min-h-screen items-center justify-center">
                 <div className="text-center space-y-4">

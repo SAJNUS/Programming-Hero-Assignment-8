@@ -2,27 +2,25 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import PageHeader from "../../components/page-header";
-import { getAuthState, mockLogout } from "../../lib/auth";
-import { useEffect, useState } from "react";
+import { useSession, signOut } from "../../lib/auth-client";
 
 export default function ProfilePage() {
     const router = useRouter();
-    const [authState, setAuthState] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const { data: session, isPending } = useSession();
 
-    useEffect(() => {
-        const state = getAuthState();
-        setAuthState(state);
-        setIsLoading(false);
-    }, []);
-
-    function handleLogout() {
-        mockLogout();
-        router.push("/");
+    async function handleLogout() {
+        await signOut({
+            fetchOptions: {
+                onSuccess: () => {
+                    router.push("/");
+                },
+            },
+        });
     }
 
-    if (isLoading) {
+    if (isPending) {
         return (
             <div className="flex min-h-screen items-center justify-center">
                 <div className="text-center space-y-4">
@@ -33,7 +31,7 @@ export default function ProfilePage() {
         );
     }
 
-    if (!authState?.isLoggedIn) {
+    if (!session?.user) {
         return (
             <div className="space-y-8">
                 <PageHeader
@@ -68,9 +66,15 @@ export default function ProfilePage() {
         );
     }
 
-    const userInitials =
-        authState.user?.email?.split("@")[0]?.substring(0, 2)?.toUpperCase() ||
-        "SC";
+    const user = session.user;
+    const userInitials = user.name
+        ? user.name
+              .split(" ")
+              .map((n) => n[0])
+              .join("")
+              .toUpperCase()
+              .substring(0, 2)
+        : user.email?.split("@")[0]?.substring(0, 2)?.toUpperCase() || "SC";
 
     return (
         <div className="space-y-8">
@@ -83,15 +87,26 @@ export default function ProfilePage() {
             <section className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
                 <article className="rounded-[2rem] border border-base-300/70 bg-base-100 p-6 shadow-sm">
                     <div className="flex items-center gap-4">
-                        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-accent text-2xl font-black text-white">
-                            {userInitials}
-                        </div>
+                        {user.image ? (
+                            <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-2xl">
+                                <Image
+                                    src={user.image}
+                                    alt={user.name || "User profile"}
+                                    fill
+                                    className="object-cover"
+                                />
+                            </div>
+                        ) : (
+                            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-accent text-2xl font-black text-white shrink-0">
+                                {userInitials}
+                            </div>
+                        )}
                         <div>
                             <p className="text-xl font-black text-neutral">
-                                {authState.user?.name || authState.user?.email}
+                                {user.name || user.email}
                             </p>
                             <p className="text-sm text-base-content/65">
-                                Logged in user
+                                Verified account
                             </p>
                         </div>
                     </div>
@@ -101,19 +116,21 @@ export default function ProfilePage() {
                             <span className="font-semibold text-neutral">
                                 Email:
                             </span>{" "}
-                            {authState.user?.email}
+                            {user.email}
                         </p>
                         <p>
                             <span className="font-semibold text-neutral">
                                 Member since:
                             </span>{" "}
-                            Today
+                            {new Date(user.createdAt).toLocaleDateString()}
                         </p>
                         <p>
                             <span className="font-semibold text-neutral">
                                 Status:
                             </span>{" "}
-                            Active
+                            <span className="inline-block px-2 py-1 rounded-full bg-success/10 text-success text-xs font-semibold">
+                                Active
+                            </span>
                         </p>
                     </div>
 

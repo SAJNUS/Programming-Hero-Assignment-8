@@ -1,22 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { navigationLinks } from "../lib/site-config";
-import { getAuthState } from "../lib/auth";
+import { useSession } from "../lib/auth-client";
 
 export default function Navbar() {
-    const [authState, setAuthState] = useState(null);
-    const [isHydrated, setIsHydrated] = useState(false);
+    const { data: session } = useSession();
 
-    useEffect(() => {
-        setAuthState(getAuthState());
-        setIsHydrated(true);
-    }, []);
-
-    const userInitials =
-        authState?.user?.email?.split("@")[0]?.substring(0, 2)?.toUpperCase() ||
-        "SC";
+    const userInitials = session?.user?.name
+        ? session.user.name
+              .split(" ")
+              .map((n) => n[0])
+              .join("")
+              .toUpperCase()
+              .substring(0, 2)
+        : session?.user?.email?.split("@")[0]?.substring(0, 2)?.toUpperCase() ||
+          "SC";
 
     return (
         <header className="sticky top-0 z-50 border-b border-base-300/60 bg-base-100/80 backdrop-blur-md">
@@ -52,33 +51,31 @@ export default function Navbar() {
                                     <Link href={link.href}>{link.label}</Link>
                                 </li>
                             ))}
-                            {isHydrated && (
-                                <li className="mt-2 grid grid-cols-2 gap-2">
-                                    {!authState?.isLoggedIn ? (
-                                        <>
-                                            <Link
-                                                href="/login"
-                                                className="btn btn-ghost btn-sm"
-                                            >
-                                                Login
-                                            </Link>
-                                            <Link
-                                                href="/register"
-                                                className="btn btn-primary btn-sm"
-                                            >
-                                                Register
-                                            </Link>
-                                        </>
-                                    ) : (
+                            <li className="mt-2 grid grid-cols-2 gap-2">
+                                {!session?.user ? (
+                                    <>
                                         <Link
-                                            href="/profile"
-                                            className="btn btn-primary btn-sm col-span-2"
+                                            href="/login"
+                                            className="btn btn-ghost btn-sm"
                                         >
-                                            My Profile
+                                            Login
                                         </Link>
-                                    )}
-                                </li>
-                            )}
+                                        <Link
+                                            href="/register"
+                                            className="btn btn-primary btn-sm"
+                                        >
+                                            Register
+                                        </Link>
+                                    </>
+                                ) : (
+                                    <Link
+                                        href="/profile"
+                                        className="btn btn-primary btn-sm col-span-2"
+                                    >
+                                        My Profile
+                                    </Link>
+                                )}
+                            </li>
                         </ul>
                     </div>
 
@@ -116,33 +113,16 @@ export default function Navbar() {
                 </div>
 
                 <div className="navbar-end gap-2">
-                    {isHydrated ? (
-                        authState?.isLoggedIn ? (
-                            <Link
-                                href="/profile"
-                                className="btn btn-ghost btn-circle tooltip tooltip-bottom"
-                                data-tip={authState?.user?.email}
-                            >
-                                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-sm font-black text-white">
-                                    {userInitials}
-                                </div>
-                            </Link>
-                        ) : (
-                            <>
-                                <Link
-                                    href="/login"
-                                    className="btn btn-ghost btn-sm rounded-full px-5 text-sm sm:btn-md"
-                                >
-                                    Login
-                                </Link>
-                                <Link
-                                    href="/register"
-                                    className="btn btn-primary btn-sm rounded-full px-5 text-sm shadow-soft sm:btn-md"
-                                >
-                                    Register
-                                </Link>
-                            </>
-                        )
+                    {session?.user ? (
+                        <Link
+                            href="/profile"
+                            className="btn btn-ghost btn-circle tooltip tooltip-bottom"
+                            data-tip={session.user.email}
+                        >
+                            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-sm font-black text-white">
+                                {userInitials}
+                            </div>
+                        </Link>
                     ) : (
                         <>
                             <Link
