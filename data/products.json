@@ -1,0 +1,71 @@
+[
+    {
+        "id": "uv-protection-sunglasses",
+        "name": "UV Protection Sunglasses",
+        "brand": "Coastline",
+        "price": 29,
+        "rating": 4.9,
+        "stock": 18,
+        "description": "Lightweight polarized shades designed for bright beach days and long summer drives.",
+        "image": "/images/products/uv-protection-sunglasses.svg",
+        "category": "Accessories",
+        "featured": true
+    },
+    {
+        "id": "summer-t-shirt",
+        "name": "Summer T-Shirt",
+        "brand": "Coral Loom",
+        "price": 22,
+        "rating": 4.7,
+        "stock": 34,
+        "description": "Breathable cotton tee with a relaxed fit and fresh seasonal color blocking.",
+        "image": "/images/products/summer-t-shirt.svg",
+        "category": "Apparel",
+        "featured": true
+    },
+    {
+        "id": "sunscreen-lotion",
+        "name": "Sunscreen Lotion",
+        "brand": "SunGuard",
+        "price": 18,
+        "rating": 4.8,
+        "stock": 52,
+        "description": "Broad-spectrum SPF care with a smooth, non-greasy finish for everyday protection.",
+        "image": "/images/products/sunscreen-lotion.svg",
+        "category": "Wellness",
+        "featured": true
+    },
+    {
+        "id": "beach-hat",
+        "name": "Beach Hat",
+        "brand": "Sand & Shade",
+        "price": 24,
+        "rating": 4.6,
+        "stock": 27,
+        "description": "A wide-brim essential that keeps the sun away while finishing the look cleanly.",
+        "image": "/images/products/beach-hat.svg",
+        "category": "Accessories"
+    },
+    {
+        "id": "summer-sandals",
+        "name": "Summer Sandals",
+        "brand": "DuneWalk",
+        "price": 41,
+        "rating": 4.7,
+        "stock": 15,
+        "description": "Cushioned sandals with a modern silhouette for all-day warm-weather comfort.",
+        "image": "/images/products/summer-sandals.svg",
+        "category": "Footwear"
+    },
+    {
+        "id": "beach-travel-bag",
+        "name": "Beach Travel Bag",
+        "brand": "Tidal Carry",
+        "price": 56,
+        "rating": 4.9,
+        "stock": 12,
+        "description": "Roomy, durable, and ready for towels, snacks, and a full seaside day trip.",
+        "image": "/images/products/beach-travel-bag.svg",
+        "category": "Travel"
+    }
+]
