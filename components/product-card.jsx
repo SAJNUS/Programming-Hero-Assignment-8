@@ -88,7 +88,7 @@ export default function ProductCard({ product }) {
                     </div>
 
                     <Link
-                        href={`/products#${product.id}`}
+                        href={`/products/${product.id}`}
                         className="btn btn-primary rounded-full px-5 shadow-soft"
                     >
                         View Details

@@ -1,7 +1,23 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { navigationLinks } from "../lib/site-config";
+import { getAuthState } from "../lib/auth";
 
 export default function Navbar() {
+    const [authState, setAuthState] = useState(null);
+    const [isHydrated, setIsHydrated] = useState(false);
+
+    useEffect(() => {
+        setAuthState(getAuthState());
+        setIsHydrated(true);
+    }, []);
+
+    const userInitials =
+        authState?.user?.email?.split("@")[0]?.substring(0, 2)?.toUpperCase() ||
+        "SC";
+
     return (
         <header className="sticky top-0 z-50 border-b border-base-300/60 bg-base-100/80 backdrop-blur-md">
             <nav className="navbar mx-auto w-full max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
@@ -36,20 +52,33 @@ export default function Navbar() {
                                     <Link href={link.href}>{link.label}</Link>
                                 </li>
                             ))}
-                            <li className="mt-2 grid grid-cols-2 gap-2">
-                                <Link
-                                    href="/login"
-                                    className="btn btn-ghost btn-sm"
-                                >
-                                    Login
-                                </Link>
-                                <Link
-                                    href="/register"
-                                    className="btn btn-primary btn-sm"
-                                >
-                                    Register
-                                </Link>
-                            </li>
+                            {isHydrated && (
+                                <li className="mt-2 grid grid-cols-2 gap-2">
+                                    {!authState?.isLoggedIn ? (
+                                        <>
+                                            <Link
+                                                href="/login"
+                                                className="btn btn-ghost btn-sm"
+                                            >
+                                                Login
+                                            </Link>
+                                            <Link
+                                                href="/register"
+                                                className="btn btn-primary btn-sm"
+                                            >
+                                                Register
+                                            </Link>
+                                        </>
+                                    ) : (
+                                        <Link
+                                            href="/profile"
+                                            className="btn btn-primary btn-sm col-span-2"
+                                        >
+                                            My Profile
+                                        </Link>
+                                    )}
+                                </li>
+                            )}
                         </ul>
                     </div>
 
@@ -87,18 +116,49 @@ export default function Navbar() {
                 </div>
 
                 <div className="navbar-end gap-2">
-                    <Link
-                        href="/login"
-                        className="btn btn-ghost btn-sm rounded-full px-5 text-sm sm:btn-md"
-                    >
-                        Login
-                    </Link>
-                    <Link
-                        href="/register"
-                        className="btn btn-primary btn-sm rounded-full px-5 text-sm shadow-soft sm:btn-md"
-                    >
-                        Register
-                    </Link>
+                    {isHydrated ? (
+                        authState?.isLoggedIn ? (
+                            <Link
+                                href="/profile"
+                                className="btn btn-ghost btn-circle tooltip tooltip-bottom"
+                                data-tip={authState?.user?.email}
+                            >
+                                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-sm font-black text-white">
+                                    {userInitials}
+                                </div>
+                            </Link>
+                        ) : (
+                            <>
+                                <Link
+                                    href="/login"
+                                    className="btn btn-ghost btn-sm rounded-full px-5 text-sm sm:btn-md"
+                                >
+                                    Login
+                                </Link>
+                                <Link
+                                    href="/register"
+                                    className="btn btn-primary btn-sm rounded-full px-5 text-sm shadow-soft sm:btn-md"
+                                >
+                                    Register
+                                </Link>
+                            </>
+                        )
+                    ) : (
+                        <>
+                            <Link
+                                href="/login"
+                                className="btn btn-ghost btn-sm rounded-full px-5 text-sm sm:btn-md"
+                            >
+                                Login
+                            </Link>
+                            <Link
+                                href="/register"
+                                className="btn btn-primary btn-sm rounded-full px-5 text-sm shadow-soft sm:btn-md"
+                            >
+                                Register
+                            </Link>
+                        </>
+                    )}
                 </div>
             </nav>
         </header>
