@@ -87,7 +87,7 @@ const sunAnimation = {
 
 export default function AnimatedHero() {
     return (
-        <section className="relative h-[400px] overflow-hidden rounded-[2rem] shadow-lg sm:h-[480px] lg:h-[540px]">
+        <section className="relative h-[380px] overflow-hidden rounded-[2rem] shadow-lg sm:h-[450px] md:h-[520px] lg:h-[540px]">
             {/* Background Image */}
             <Image
                 src={heroBannerImage}
@@ -101,56 +101,56 @@ export default function AnimatedHero() {
             <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-black/40" />
 
             {/* Animated Lottie sun - positioned absolutely */}
-            <div className="pointer-events-none absolute -right-16 -top-16 opacity-25 sm:-right-20 sm:-top-20 sm:opacity-30 lg:opacity-25 z-20">
+            <div className="pointer-events-none absolute -right-12 -top-12 opacity-20 sm:-right-16 sm:-top-16 sm:opacity-25 md:-right-20 md:-top-20 md:opacity-30 lg:opacity-25 z-20">
                 <Lottie
                     animationData={sunAnimation}
                     loop={true}
                     autoplay={true}
-                    className="h-48 w-48 sm:h-72 sm:w-72 lg:h-96 lg:w-96"
+                    className="h-40 w-40 sm:h-60 sm:w-60 md:h-80 md:w-80 lg:h-96 lg:w-96"
                 />
             </div>
 
             {/* Content container - centered */}
-            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 sm:px-8 lg:px-12">
-                <div className="w-full max-w-2xl text-center">
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-3 py-8 sm:px-6 sm:py-10 md:px-8 lg:px-12">
+                <div className="flex flex-col items-center justify-center w-full max-w-3xl text-center">
                     {/* Badge section */}
-                    <div className="animate-fade-in mb-6 flex flex-wrap justify-center gap-3 sm:gap-4">
-                        <span className="rounded-full bg-white/90 px-5 py-2.5 text-xs font-black uppercase tracking-[0.15em] text-primary shadow-lg backdrop-blur-sm sm:px-6 sm:py-3 sm:text-sm">
+                    <div className="animate-fade-in mb-3 flex flex-wrap justify-center gap-2 sm:mb-4 sm:gap-3">
+                        <span className="rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.12em] text-primary shadow-lg backdrop-blur-sm sm:px-5 sm:py-2.5 sm:text-xs md:px-6 md:py-3 md:text-sm">
                             Summer Sale 50% OFF
                         </span>
-                        <span className="rounded-full bg-white/90 px-5 py-2.5 text-xs font-black uppercase tracking-[0.15em] text-secondary shadow-lg backdrop-blur-sm sm:px-6 sm:py-3 sm:text-sm">
+                        <span className="rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.12em] text-secondary shadow-lg backdrop-blur-sm sm:px-5 sm:py-2.5 sm:text-xs md:px-6 md:py-3 md:text-sm">
                             Hot Deals 🔥
                         </span>
                     </div>
 
                     {/* Main heading */}
-                    <h1 className="animate-fade-in-delay text-3xl font-black leading-tight text-white drop-shadow-[0_6px_8px_rgba(0,0,0,0.5)] sm:text-5xl lg:text-6xl">
+                    <h1 className="animate-fade-in-delay text-2xl font-black leading-tight text-white drop-shadow-[0_6px_8px_rgba(0,0,0,0.5)] sm:text-3xl md:text-5xl lg:text-6xl whitespace-nowrap">
                         Summer Essentials, Delivered
                     </h1>
 
                     {/* Description */}
-                    <p className="animate-fade-in-delay-2 mx-auto mt-4 max-w-xl text-base leading-relaxed text-white drop-shadow-[0_3px_6px_rgba(0,0,0,0.4)] sm:mt-5 sm:text-lg lg:text-xl">
+                    <p className="animate-fade-in-delay-2 mx-auto mt-2 max-w-xl text-xs leading-relaxed text-white drop-shadow-[0_3px_6px_rgba(0,0,0,0.4)] sm:mt-3 sm:text-sm md:mt-4 md:text-base lg:text-xl">
                         Stay cool, stay protected, and enjoy the season with our
                         premium collection of summer must-haves.
                     </p>
 
                     {/* Promo box */}
-                    <div className="animate-fade-in-delay-2 mx-auto mt-5 w-full max-w-lg rounded-2xl border border-white/40 bg-white/20 px-5 py-4 text-sm font-semibold text-white shadow-lg backdrop-blur-md sm:mt-6 sm:px-6 sm:py-5 sm:text-base lg:mt-7">
+                    <div className="animate-fade-in-delay-2 mx-auto mt-3 w-full max-w-lg rounded-2xl border border-white/40 bg-white/20 px-3 py-2.5 text-[11px] font-semibold text-white shadow-lg backdrop-blur-md sm:mt-4 sm:px-5 sm:py-3.5 sm:text-xs md:mt-5 md:px-6 md:py-4 md:text-sm lg:mt-7 lg:text-base">
                         Strong summer promotional banner: Limited-time picks,
                         premium quality, and fresh seasonal prices.
                     </div>
 
                     {/* CTA buttons */}
-                    <div className="animate-fade-in-delay-2 mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:justify-center lg:mt-9 lg:gap-4">
+                    <div className="animate-fade-in-delay-2 mt-4 flex flex-col items-center gap-2.5 sm:mt-5 sm:flex-row sm:justify-center sm:gap-3 md:mt-6 lg:mt-9 lg:gap-4">
                         <Link
                             href="/products"
-                            className="btn btn-primary rounded-full px-10 py-3 font-bold shadow-lg transition-all hover:shadow-xl hover:scale-105 sm:px-12 lg:px-14"
+                            className="btn btn-primary btn-sm rounded-full sm:btn-md md:btn-lg font-bold shadow-lg transition-all hover:shadow-xl hover:scale-105"
                         >
                             Shop Now
                         </Link>
                         <Link
                             href="/profile"
-                            className="btn btn-ghost rounded-full border-2 border-white/80 px-10 py-3 font-bold text-white hover:bg-white/20 transition-all hover:shadow-lg sm:px-12 lg:px-14"
+                            className="btn btn-ghost btn-sm rounded-full border-2 border-white/80 text-white hover:bg-white/20 transition-all hover:shadow-lg sm:btn-md md:btn-lg font-bold"
                         >
                             My Account
                         </Link>
