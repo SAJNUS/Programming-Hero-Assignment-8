@@ -1,10 +1,47 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { navigationLinks } from "../lib/site-config";
 import { signOut, useSession } from "../lib/auth-client";
+
+function getUserInitials(session) {
+    return session?.user?.name
+        ? session.user.name
+              .split(" ")
+              .map((n) => n[0])
+              .join("")
+              .toUpperCase()
+              .substring(0, 2)
+        : session?.user?.email?.split("@")[0]?.substring(0, 2)?.toUpperCase() ||
+              "SC";
+}
+
+function UserAvatar({ session, className = "h-8 w-8 text-xs" }) {
+    const initials = getUserInitials(session);
+    const image = session?.user?.image;
+
+    return (
+        <span
+            className={`relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-primary to-accent font-black text-white ${className}`}
+        >
+            {image ? (
+                <Image
+                    src={image}
+                    alt={session?.user?.name || "User profile photo"}
+                    className="absolute inset-0 h-full w-full rounded-full object-cover object-center"
+                    fill
+                    sizes="40px"
+                    unoptimized
+                />
+            ) : (
+                <span className="relative z-10">{initials}</span>
+            )}
+        </span>
+    );
+}
 
 export default function Navbar() {
     const router = useRouter();
@@ -25,16 +62,6 @@ export default function Navbar() {
         });
         setIsLoggingOut(false);
     }
-
-    const userInitials = session?.user?.name
-        ? session.user.name
-              .split(" ")
-              .map((n) => n[0])
-              .join("")
-              .toUpperCase()
-              .substring(0, 2)
-        : session?.user?.email?.split("@")[0]?.substring(0, 2)?.toUpperCase() ||
-          "SC";
 
     return (
         <header className="sticky top-0 z-50 border-b border-base-300/60 bg-base-100/80 backdrop-blur-md">
@@ -148,12 +175,14 @@ export default function Navbar() {
                         <>
                             <Link
                                 href="/profile"
-                                className="btn btn-ghost btn-circle tooltip tooltip-bottom shrink-0"
-                                data-tip={session.user.email}
+                                aria-label="Open profile"
+                                className="group relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full p-0 transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary/30"
                             >
-                                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-sm font-black text-white">
-                                    {userInitials}
-                                </div>
+                                <span className="absolute h-12 w-12 rounded-full bg-slate-400/0 shadow-none transition-all duration-200 group-hover:bg-slate-400/25 group-hover:shadow-md group-hover:shadow-slate-400/25" />
+                                <UserAvatar
+                                    session={session}
+                                    className="relative z-10 h-8 w-8 text-xs shadow-sm ring-2 ring-white/80"
+                                />
                             </Link>
                             <button
                                 type="button"
