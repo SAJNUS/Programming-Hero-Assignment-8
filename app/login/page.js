@@ -58,12 +58,19 @@ export default function LoginPage() {
         setIsGoogleLoading(true);
 
         try {
+            // If user was redirected here from a protected route, use that as the
+            // OAuth callback so they return to the original page after Google login.
+            const redirectUrl = getAndClearAuthRedirect() || "/";
+            const callbackURL = redirectUrl.startsWith("http")
+                ? redirectUrl
+                : window.location.origin + redirectUrl;
+
             await signIn.social(
-                { provider: "google", callbackURL: "/" },
+                { provider: "google", callbackURL },
                 {
                     onSuccess: () => {
-                        // For Google OAuth, redirect to home after successful login
-                        router.push("/");
+                        // After successful social login, navigate to the intended URL
+                        router.push(redirectUrl);
                     },
                     onError: (error) => {
                         setError(

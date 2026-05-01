@@ -84,13 +84,14 @@ function ProductDetailsContent() {
             <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
                 <div className="space-y-6">
                     <div className="overflow-hidden rounded-[2rem] border border-base-300/70 bg-gradient-to-br from-[#fff4d7] via-[#fffdfa] to-[#dffaf4] p-8 shadow-soft">
-                        <div className="flex h-72 items-center justify-center rounded-[1.5rem] border border-white/70 bg-white/50 p-6 shadow-inner backdrop-blur-sm sm:h-96">
+                        <div className="relative h-72 sm:h-96 overflow-hidden rounded-[1.5rem] border border-white/70 bg-white/50 p-0 shadow-inner backdrop-blur-sm">
+                            {/* Use object-cover and rounded corners to match product card style */}
                             <Image
                                 src={product.image}
                                 alt={product.name}
                                 width={600}
                                 height={500}
-                                className="h-full w-full object-contain"
+                                className="h-full w-full object-cover rounded-[1.25rem]"
                                 priority
                             />
                         </div>
