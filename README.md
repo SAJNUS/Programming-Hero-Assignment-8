@@ -13,12 +13,7 @@ This project was built to deliver a production-style storefront experience for a
 
 ## Live URL
 
-> Live Demo: `https://sun-cart-rust.vercel.app/`
-
-## Final Submission Links
-
-- GitHub Repo URL: `PASTE_YOUR_GITHUB_REPO_LINK_HERE`
-- Vercel Live URL: `PASTE_YOUR_VERCEL_LIVE_LINK_HERE`
+Live Demo: `https://sun-cart-rust.vercel.app/`
 
 ## Key features
 
@@ -132,7 +127,6 @@ For production, set `BETTER_AUTH_URL` and `NEXT_PUBLIC_AUTH_URL` to your deploye
     - `NEXT_PUBLIC_AUTH_URL=https://your-domain.com`
 - Add production Google OAuth redirect URI:
     - `https://your-domain.com/api/auth/callback/google`
-- Keep the repo link and live link updated in the submission section below
 
 ## Submission readiness checklist
 
