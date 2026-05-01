@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import PageHeader from "../../components/page-header";
-import { signUp, signIn } from "../../lib/auth-client";
+import { signUp, signIn, signOut } from "../../lib/auth-client";
 
 export default function RegisterPage() {
     const router = useRouter();
@@ -44,8 +44,17 @@ export default function RegisterPage() {
                 },
                 {
                     onSuccess: () => {
-                        // After successful registration, redirect to login page
-                        router.push("/login");
+                        // After successful registration, make sure the user is not
+                        // auto-logged in. Clear any temporary session first, then
+                        // send them to the login page to sign in manually.
+                        signOut({
+                            fetchOptions: {
+                                onSuccess: () => {},
+                                onError: () => {},
+                            },
+                        }).finally(() => {
+                            router.replace("/login");
+                        });
                     },
                     onError: (error) => {
                         setError(
