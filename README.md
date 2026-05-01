@@ -13,7 +13,7 @@ This project was built to deliver a production-style storefront experience for a
 
 ## Live URL
 
-Live Demo: `https://sun-cart-rust.vercel.app/`
+Live Demo: <https://sun-cart-rust.vercel.app/>
 
 ## Key features
 
