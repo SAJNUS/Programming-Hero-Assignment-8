@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import Lottie from "lottie-react";
+import heroBannerImage from "../assets/hero section image.png";
 
 // Simple sun/summer animation
 const sunAnimation = {
@@ -85,51 +87,74 @@ const sunAnimation = {
 
 export default function AnimatedHero() {
     return (
-        <section className="relative overflow-hidden rounded-[2rem] border border-base-300/70 bg-gradient-to-br from-yellow-100 to-orange-50 p-6 shadow-sm sm:p-10 lg:p-12">
-            {/* Animated Lottie sun */}
-            <div className="pointer-events-none absolute -right-10 -top-10 opacity-25 sm:-right-12 sm:-top-12 sm:opacity-30">
+        <section className="relative h-[400px] overflow-hidden rounded-[2rem] shadow-lg sm:h-[480px] lg:h-[540px]">
+            {/* Background Image */}
+            <Image
+                src={heroBannerImage}
+                alt="Premium summer essentials banner featuring sunglasses, sunscreen lotion, beach accessories and summer fashion items"
+                fill
+                className="object-cover object-center"
+                priority
+            />
+
+            {/* Dark overlay for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-black/40" />
+
+            {/* Animated Lottie sun - positioned absolutely */}
+            <div className="pointer-events-none absolute -right-16 -top-16 opacity-25 sm:-right-20 sm:-top-20 sm:opacity-30 lg:opacity-25 z-20">
                 <Lottie
                     animationData={sunAnimation}
                     loop={true}
                     autoplay={true}
-                    className="h-44 w-44 sm:h-64 sm:w-64 lg:h-72 lg:w-72"
+                    className="h-48 w-48 sm:h-72 sm:w-72 lg:h-96 lg:w-96"
                 />
             </div>
 
-            {/* Content */}
-            <div className="relative z-10 max-w-xl">
-                <div className="animate-fade-in flex flex-wrap gap-2">
-                    <span className="rounded-full bg-white/90 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-primary shadow-sm">
-                        Summer Sale 50% OFF
-                    </span>
-                    <span className="rounded-full bg-white/90 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-secondary shadow-sm">
-                        Hot Deals 🔥
-                    </span>
-                </div>
-                <h1 className="mt-4 text-3xl font-black text-neutral animate-fade-in-delay sm:text-4xl lg:text-5xl">
-                    Summer Essentials, Delivered
-                </h1>
-                <p className="mt-3 text-base leading-7 text-base-content/70 animate-fade-in-delay-2 sm:text-lg">
-                    Stay cool, stay protected, and enjoy the season with our
-                    premium collection of summer must-haves.
-                </p>
-                <div className="mt-4 rounded-2xl border border-white/70 bg-white/70 px-4 py-3 text-sm font-semibold text-neutral shadow-sm">
-                    Strong summer promotional banner: Limited-time picks,
-                    premium quality, and fresh seasonal prices.
-                </div>
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                    <Link
-                        href="/products"
-                        className="btn btn-primary rounded-full px-8 shadow-soft transition-shadow hover:shadow-md"
-                    >
-                        Shop Now
-                    </Link>
-                    <Link
-                        href="/profile"
-                        className="btn btn-ghost rounded-full px-8"
-                    >
-                        My account
-                    </Link>
+            {/* Content container - centered */}
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 sm:px-8 lg:px-12">
+                <div className="w-full max-w-2xl text-center">
+                    {/* Badge section */}
+                    <div className="animate-fade-in mb-6 flex flex-wrap justify-center gap-3 sm:gap-4">
+                        <span className="rounded-full bg-white/90 px-5 py-2.5 text-xs font-black uppercase tracking-[0.15em] text-primary shadow-lg backdrop-blur-sm sm:px-6 sm:py-3 sm:text-sm">
+                            Summer Sale 50% OFF
+                        </span>
+                        <span className="rounded-full bg-white/90 px-5 py-2.5 text-xs font-black uppercase tracking-[0.15em] text-secondary shadow-lg backdrop-blur-sm sm:px-6 sm:py-3 sm:text-sm">
+                            Hot Deals 🔥
+                        </span>
+                    </div>
+
+                    {/* Main heading */}
+                    <h1 className="animate-fade-in-delay text-3xl font-black leading-tight text-white drop-shadow-[0_6px_8px_rgba(0,0,0,0.5)] sm:text-5xl lg:text-6xl">
+                        Summer Essentials, Delivered
+                    </h1>
+
+                    {/* Description */}
+                    <p className="animate-fade-in-delay-2 mx-auto mt-4 max-w-xl text-base leading-relaxed text-white drop-shadow-[0_3px_6px_rgba(0,0,0,0.4)] sm:mt-5 sm:text-lg lg:text-xl">
+                        Stay cool, stay protected, and enjoy the season with our
+                        premium collection of summer must-haves.
+                    </p>
+
+                    {/* Promo box */}
+                    <div className="animate-fade-in-delay-2 mx-auto mt-5 w-full max-w-lg rounded-2xl border border-white/40 bg-white/20 px-5 py-4 text-sm font-semibold text-white shadow-lg backdrop-blur-md sm:mt-6 sm:px-6 sm:py-5 sm:text-base lg:mt-7">
+                        Strong summer promotional banner: Limited-time picks,
+                        premium quality, and fresh seasonal prices.
+                    </div>
+
+                    {/* CTA buttons */}
+                    <div className="animate-fade-in-delay-2 mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:justify-center lg:mt-9 lg:gap-4">
+                        <Link
+                            href="/products"
+                            className="btn btn-primary rounded-full px-10 py-3 font-bold shadow-lg transition-all hover:shadow-xl hover:scale-105 sm:px-12 lg:px-14"
+                        >
+                            Shop Now
+                        </Link>
+                        <Link
+                            href="/profile"
+                            className="btn btn-ghost rounded-full border-2 border-white/80 px-10 py-3 font-bold text-white hover:bg-white/20 transition-all hover:shadow-lg sm:px-12 lg:px-14"
+                        >
+                            My Account
+                        </Link>
+                    </div>
                 </div>
             </div>
 
@@ -168,10 +193,10 @@ export default function AnimatedHero() {
                     animation: fadeIn 0.6s ease-out;
                 }
                 .animate-fade-in-delay {
-                    animation: fadeInDelay 0.6s ease-out 0.1s both;
+                    animation: fadeInDelay 0.6s ease-out 0.15s both;
                 }
                 .animate-fade-in-delay-2 {
-                    animation: fadeInDelay2 0.6s ease-out 0.2s both;
+                    animation: fadeInDelay2 0.6s ease-out 0.3s both;
                 }
             `}</style>
         </section>

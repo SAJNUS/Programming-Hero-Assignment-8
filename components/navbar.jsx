@@ -170,7 +170,7 @@ export default function Navbar() {
                     </ul>
                 </div>
 
-                <div className="navbar-end gap-2">
+                <div className="navbar-end gap-2 sm:gap-3">
                     {session?.user ? (
                         <>
                             <Link
