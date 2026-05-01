@@ -68,7 +68,7 @@ export default function Navbar() {
     }
 
     return (
-        <header className="sticky top-0 z-50 border-b border-base-300/60 bg-base-100/80 backdrop-blur-md">
+        <header className="border-b border-base-300/60 bg-base-100/80 backdrop-blur-md">
             <nav className="navbar mx-auto w-full max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
                 <div className="navbar-start gap-2">
                     <div className="dropdown lg:hidden">

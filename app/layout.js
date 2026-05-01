@@ -9,6 +9,16 @@ export const metadata = {
     title: "SunCart – Summer Essentials Store",
     description:
         "A modern summer-themed eCommerce storefront built with Next.js App Router, Tailwind CSS, and DaisyUI.",
+    icons: {
+        icon: [
+            { url: "/favicon.svg", type: "image/svg+xml", sizes: "32x32" },
+            { url: "/favicon.svg", type: "image/svg+xml", sizes: "48x48" },
+            { url: "/favicon.svg", type: "image/svg+xml", sizes: "64x64" },
+            { url: "/favicon.svg", type: "image/svg+xml", sizes: "any" },
+        ],
+        shortcut: "/favicon.svg",
+        apple: "/favicon.svg",
+    },
 };
 
 export default function RootLayout({ children }) {
