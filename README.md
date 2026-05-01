@@ -13,7 +13,7 @@ This project was built to deliver a production-style storefront experience for a
 
 ## Live URL
 
-> Live Demo: `https://your-vercel-domain.vercel.app` (replace with deployed URL)
+> Live Demo: `https://sun-cart-rust.vercel.app/`
 
 ## Final Submission Links
 
@@ -71,21 +71,35 @@ This project was built to deliver a production-style storefront experience for a
 
 ## Environment variables setup
 
-Create a `.env.local` file in the project root:
+Create a `.env.local` file in the project root and add your local development values:
 
 ```
-BETTER_AUTH_SECRET=your-secure-random-string-min-32-chars
+BETTER_AUTH_SECRET=your-secure-random-secret
 BETTER_AUTH_URL=http://localhost:3000
 NEXT_PUBLIC_AUTH_URL=http://localhost:3000
-GOOGLE_CLIENT_ID=your-google-client-id
-GOOGLE_CLIENT_SECRET=your-google-client-secret
+GOOGLE_CLIENT_ID=your-google-oauth-client-id
+GOOGLE_CLIENT_SECRET=your-google-oauth-client-secret
 ```
 
 ### Security notes
 
 - Never commit `.env.local`
 - Keep all credentials in environment variables only
+- Do not paste real secrets into the README
+- Use separate production values in Vercel
 - Regenerate secrets before production deployment
+
+### Current local setup
+
+This project uses BetterAuth with the following environment keys:
+
+- `BETTER_AUTH_SECRET`
+- `BETTER_AUTH_URL`
+- `NEXT_PUBLIC_AUTH_URL`
+- `GOOGLE_CLIENT_ID`
+- `GOOGLE_CLIENT_SECRET`
+
+For production, set `BETTER_AUTH_URL` and `NEXT_PUBLIC_AUTH_URL` to your deployed domain.
 
 ## Local installation steps
 
@@ -107,12 +121,18 @@ GOOGLE_CLIENT_SECRET=your-google-client-secret
 ## Deployment notes (Vercel)
 
 - Deploy with Vercel (recommended for Next.js)
-- Set the same environment variables in Vercel Project Settings
-- Update URLs for production:
+- Add these environment variables in Vercel Project Settings:
+    - `BETTER_AUTH_SECRET`
+    - `BETTER_AUTH_URL`
+    - `NEXT_PUBLIC_AUTH_URL`
+    - `GOOGLE_CLIENT_ID`
+    - `GOOGLE_CLIENT_SECRET`
+- Update production URLs to your live domain:
     - `BETTER_AUTH_URL=https://your-domain.com`
     - `NEXT_PUBLIC_AUTH_URL=https://your-domain.com`
 - Add production Google OAuth redirect URI:
     - `https://your-domain.com/api/auth/callback/google`
+- Keep the repo link and live link updated in the submission section below
 
 ## Submission readiness checklist
 
