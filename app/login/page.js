@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import PageHeader from "../../components/page-header";
@@ -9,6 +9,7 @@ import {
     clearAuthRedirect,
     getAuthRedirect,
     getAndClearAuthRedirect,
+    useSession,
 } from "../../lib/auth-client";
 
 export default function LoginPage() {
@@ -22,12 +23,22 @@ export default function LoginPage() {
 function LoginContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
+    const { data: session, isPending: isSessionPending } = useSession();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isGoogleLoading, setIsGoogleLoading] = useState(false);
     const [error, setError] = useState("");
+    const [pendingRedirect, setPendingRedirect] = useState(null);
     const cameFromProtectedRoute = searchParams.get("from") === "protected";
+
+    // After successful email login, wait for session to update before redirecting
+    useEffect(() => {
+        if (!isSessionPending && session?.user && pendingRedirect) {
+            router.push(pendingRedirect);
+            setPendingRedirect(null);
+        }
+    }, [isSessionPending, session?.user, pendingRedirect, router]);
 
     async function handleEmailLogin(e) {
         e.preventDefault();
@@ -39,23 +50,26 @@ function LoginContent() {
                 { email, password },
                 {
                     onSuccess: () => {
-                        const redirectUrl = cameFromProtectedRoute
-                            ? getAndClearAuthRedirect()
-                            : null;
+                        let redirectUrl = null;
 
-                        if (!cameFromProtectedRoute) {
+                        if (cameFromProtectedRoute) {
+                            redirectUrl = getAndClearAuthRedirect();
+                        } else {
                             clearAuthRedirect();
                         }
 
-                        // Redirect back to the product they wanted or to home
+                        // Determine where to redirect
+                        let destination = "/";
                         if (
                             redirectUrl &&
                             redirectUrl.startsWith("/products/")
                         ) {
-                            router.push(redirectUrl);
-                        } else {
-                            router.push("/");
+                            destination = redirectUrl;
                         }
+
+                        // Don't redirect immediately - wait for session to update
+                        // This ensures ProtectedRoute won't reject the user
+                        setPendingRedirect(destination);
                     },
                     onError: (error) => {
                         setError(
