@@ -55,18 +55,54 @@ export default function Footer() {
                         <p className="text-sm font-bold uppercase tracking-[0.28em] text-accent">
                             Follow
                         </p>
-                        <div className="flex flex-wrap gap-3">
-                            {socialLinks.map((social) => (
-                                <a
-                                    key={social.href}
-                                    href={social.href}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="btn btn-outline btn-sm rounded-full border-white/20 text-white hover:border-accent hover:bg-accent hover:text-neutral"
-                                >
-                                    {social.label}
-                                </a>
-                            ))}
+                        <div className="flex flex-wrap gap-2 items-center">
+                            {/* Facebook (icon-only, no border) */}
+                            <a
+                                href="https://facebook.com"
+                                target="_blank"
+                                rel="noreferrer"
+                                aria-label="Facebook"
+                                title="Facebook"
+                                className="rounded-full p-1.5 hover:bg-accent/10 transition-colors flex items-center justify-center"
+                            >
+                                <img
+                                    src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/facebook.svg"
+                                    alt="Facebook"
+                                    className="w-[1.15rem] h-[1.15rem] filter invert brightness-200"
+                                />
+                            </a>
+
+                            {/* Instagram */}
+                            <a
+                                href="https://instagram.com"
+                                target="_blank"
+                                rel="noreferrer"
+                                aria-label="Instagram"
+                                title="Instagram"
+                                className="rounded-full p-1.5 hover:bg-accent/10 transition-colors flex items-center justify-center"
+                            >
+                                <img
+                                    src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/instagram.svg"
+                                    alt="Instagram"
+                                    className="w-[1.15rem] h-[1.15rem] filter invert brightness-200"
+                                />
+                            </a>
+
+                            {/* X (Twitter) */}
+                            <a
+                                href="https://x.com"
+                                target="_blank"
+                                rel="noreferrer"
+                                aria-label="X"
+                                title="X"
+                                className="rounded-full p-1.5 hover:bg-accent/10 transition-colors flex items-center justify-center"
+                            >
+                                <img
+                                    src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/x.svg"
+                                    alt="X"
+                                    className="w-[1.15rem] h-[1.15rem] filter invert brightness-200"
+                                />
+                            </a>
                         </div>
                     </div>
                 </div>

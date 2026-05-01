@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import PageHeader from "../../components/page-header";
 import { useSession, signOut } from "../../lib/auth-client";
 
@@ -76,6 +75,9 @@ export default function ProfilePage() {
               .substring(0, 2)
         : user.email?.split("@")[0]?.substring(0, 2)?.toUpperCase() || "SC";
 
+    const userImage =
+        user.image || user.picture || user.avatar || user.profileImage;
+
     return (
         <div className="space-y-8">
             <PageHeader
@@ -94,14 +96,13 @@ export default function ProfilePage() {
                     <div className="flex flex-col sm:flex-row sm:items-start gap-6 pb-6 border-b border-base-300/50">
                         {/* Avatar */}
                         <div className="flex-shrink-0">
-                            {user.image ? (
-                                <div className="relative h-24 w-24 overflow-hidden rounded-3xl ring-4 ring-primary/20 shadow-md">
-                                    <Image
-                                        src={user.image}
+                            {userImage ? (
+                                <div className="h-24 w-24 overflow-hidden rounded-3xl ring-4 ring-primary/20 shadow-md">
+                                    <img
+                                        src={userImage}
                                         alt={user.name || "User profile"}
-                                        fill
-                                        className="object-cover"
-                                        unoptimized
+                                        className="h-full w-full object-cover"
+                                        loading="lazy"
                                     />
                                 </div>
                             ) : (

@@ -21,7 +21,11 @@ function getUserInitials(session) {
 
 function UserAvatar({ session, className = "h-8 w-8 text-xs" }) {
     const initials = getUserInitials(session);
-    const image = session?.user?.image;
+    const image =
+        session?.user?.image ||
+        session?.user?.picture ||
+        session?.user?.avatar ||
+        session?.user?.profileImage;
 
     return (
         <span
