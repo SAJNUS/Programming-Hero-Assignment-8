@@ -22,7 +22,7 @@ export default function ProtectedRoute({ children }) {
     useEffect(() => {
         if (!isPending && !session?.user) {
             setAuthRedirect(pathname);
-            router.replace("/login");
+            router.replace("/login?from=protected");
         }
     }, [session, isPending, pathname, router]);
 

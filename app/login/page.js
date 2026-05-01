@@ -1,18 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import PageHeader from "../../components/page-header";
-import { signIn, getAndClearAuthRedirect } from "../../lib/auth-client";
+import {
+    signIn,
+    clearAuthRedirect,
+    getAuthRedirect,
+    getAndClearAuthRedirect,
+} from "../../lib/auth-client";
 
 export default function LoginPage() {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isGoogleLoading, setIsGoogleLoading] = useState(false);
     const [error, setError] = useState("");
+    const cameFromProtectedRoute = searchParams.get("from") === "protected";
 
     async function handleEmailLogin(e) {
         e.preventDefault();
@@ -24,8 +31,13 @@ export default function LoginPage() {
                 { email, password },
                 {
                     onSuccess: () => {
-                        // Get the redirect URL that was stored when the protected route redirected here
-                        const redirectUrl = getAndClearAuthRedirect();
+                        const redirectUrl = cameFromProtectedRoute
+                            ? getAndClearAuthRedirect()
+                            : null;
+
+                        if (!cameFromProtectedRoute) {
+                            clearAuthRedirect();
+                        }
 
                         // Redirect back to the product they wanted or to home
                         if (
@@ -62,15 +74,20 @@ export default function LoginPage() {
 
             // If user was redirected here from a protected route, use that as the
             // OAuth callback so they return to the original page after Google login.
-            const redirectUrl = getAndClearAuthRedirect() || "/";
-            const callbackURL = redirectUrl.startsWith("http")
-                ? redirectUrl
-                : window.location.origin + redirectUrl;
+            const redirectUrl = cameFromProtectedRoute
+                ? getAuthRedirect() || "/"
+                : "/";
+            const callbackURL = window.location.origin + redirectUrl;
+
+            if (!cameFromProtectedRoute) {
+                clearAuthRedirect();
+            }
 
             await signIn.social(
                 { provider: "google", callbackURL },
                 {
                     onSuccess: () => {
+                        clearAuthRedirect();
                         // After successful social login, navigate to the intended URL
                         router.push(redirectUrl);
                     },

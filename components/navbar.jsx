@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { navigationLinks } from "../lib/site-config";
-import { signOut, useSession } from "../lib/auth-client";
+import { clearAuthRedirect, signOut, useSession } from "../lib/auth-client";
 
 function getUserInitials(session) {
     return session?.user?.name
@@ -54,9 +54,11 @@ export default function Navbar() {
 
     async function handleLogout() {
         setIsLoggingOut(true);
+        clearAuthRedirect();
         await signOut({
             fetchOptions: {
                 onSuccess: () => {
+                    clearAuthRedirect();
                     router.push("/");
                 },
                 onError: () => {

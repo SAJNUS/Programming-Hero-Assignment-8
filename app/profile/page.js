@@ -3,16 +3,18 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import PageHeader from "../../components/page-header";
-import { useSession, signOut } from "../../lib/auth-client";
+import { clearAuthRedirect, useSession, signOut } from "../../lib/auth-client";
 
 export default function ProfilePage() {
     const router = useRouter();
     const { data: session, isPending } = useSession();
 
     async function handleLogout() {
+        clearAuthRedirect();
         await signOut({
             fetchOptions: {
                 onSuccess: () => {
+                    clearAuthRedirect();
                     router.push("/");
                 },
             },
