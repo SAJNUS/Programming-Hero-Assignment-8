@@ -70,8 +70,11 @@ export default function RegisterPage() {
         setIsGoogleLoading(true);
 
         try {
+            const requiredRedirectUri = `${window.location.origin}/api/auth/callback/google`;
+            const callbackURL = `${window.location.origin}/`;
+
             await signIn.social(
-                { provider: "google", callbackURL: "/" },
+                { provider: "google", callbackURL },
                 {
                     onSuccess: () => {
                         // For Google OAuth signup, redirect to home
@@ -80,13 +83,16 @@ export default function RegisterPage() {
                     onError: (error) => {
                         setError(
                             error.message ||
-                                "Google registration failed. Please try again.",
+                                `Google registration failed. Please add this Authorized Redirect URI in Google Console: ${requiredRedirectUri}`,
                         );
                     },
                 },
             );
         } catch (err) {
-            setError("An error occurred during Google registration.");
+            const requiredRedirectUri = `${window.location.origin}/api/auth/callback/google`;
+            setError(
+                `An error occurred during Google registration. Ensure this Authorized Redirect URI is configured in Google Console: ${requiredRedirectUri}`,
+            );
             console.error("Google registration error:", err);
         } finally {
             setIsGoogleLoading(false);

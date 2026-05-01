@@ -58,6 +58,8 @@ export default function LoginPage() {
         setIsGoogleLoading(true);
 
         try {
+            const requiredRedirectUri = `${window.location.origin}/api/auth/callback/google`;
+
             // If user was redirected here from a protected route, use that as the
             // OAuth callback so they return to the original page after Google login.
             const redirectUrl = getAndClearAuthRedirect() || "/";
@@ -75,13 +77,16 @@ export default function LoginPage() {
                     onError: (error) => {
                         setError(
                             error.message ||
-                                "Google login failed. Please try again.",
+                                `Google login failed. Please add this Authorized Redirect URI in Google Console: ${requiredRedirectUri}`,
                         );
                     },
                 },
             );
         } catch (err) {
-            setError("An error occurred during Google login.");
+            const requiredRedirectUri = `${window.location.origin}/api/auth/callback/google`;
+            setError(
+                `An error occurred during Google login. Ensure this Authorized Redirect URI is configured in Google Console: ${requiredRedirectUri}`,
+            );
             console.error("Google login error:", err);
         } finally {
             setIsGoogleLoading(false);
