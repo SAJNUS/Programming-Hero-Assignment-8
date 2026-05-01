@@ -15,7 +15,7 @@ export default function ProfilePage() {
             fetchOptions: {
                 onSuccess: () => {
                     clearAuthRedirect();
-                    router.push("/");
+                    window.location.replace("/");
                 },
             },
         });

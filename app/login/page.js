@@ -94,16 +94,28 @@ function LoginContent() {
         try {
             const requiredRedirectUri = `${window.location.origin}/api/auth/callback/google`;
 
-            // If user was redirected here from a protected route, use that as the
-            // OAuth callback so they return to the original page after Google login.
-            const redirectUrl = cameFromProtectedRoute
-                ? getAuthRedirect() || "/"
-                : "/";
-            const callbackURL = window.location.origin + redirectUrl;
+            // Determine redirect URL based on where user came from
+            let redirectUrl = "/";
 
-            if (!cameFromProtectedRoute) {
+            if (cameFromProtectedRoute) {
+                // User came from protected route - consume the saved redirect
+                const protectedRedirect = getAndClearAuthRedirect();
+                if (
+                    protectedRedirect &&
+                    protectedRedirect.startsWith("/products/")
+                ) {
+                    redirectUrl = protectedRedirect;
+                } else {
+                    // Invalid or missing redirect - ensure it's cleared and use home
+                    clearAuthRedirect();
+                }
+            } else {
+                // Normal login - always clear any stale redirects and go to home
                 clearAuthRedirect();
+                redirectUrl = "/";
             }
+
+            const callbackURL = window.location.origin + redirectUrl;
 
             await signIn.social(
                 { provider: "google", callbackURL },

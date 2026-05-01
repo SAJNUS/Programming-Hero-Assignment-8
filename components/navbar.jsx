@@ -59,7 +59,7 @@ export default function Navbar() {
             fetchOptions: {
                 onSuccess: () => {
                     clearAuthRedirect();
-                    router.push("/");
+                    window.location.replace("/");
                 },
                 onError: () => {
                     setIsLoggingOut(false);
