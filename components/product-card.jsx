@@ -39,13 +39,13 @@ export default function ProductCard({ product }) {
                     </span>
                 </div>
 
-                <div className="relative mt-4 flex h-[172px] items-center justify-center rounded-[1.5rem] border border-white/70 bg-white/45 p-4 shadow-inner backdrop-blur-sm">
+                <div className="relative mt-4 w-full overflow-hidden rounded-[1.5rem] border border-white/70 bg-white/55 p-3 shadow-inner backdrop-blur-sm">
                     <Image
                         src={product.image}
                         alt={product.name}
-                        width={420}
-                        height={300}
-                        className="h-full w-full object-contain transition duration-300 group-hover:scale-105"
+                        width={500}
+                        height={500}
+                        className="rounded-[1.25rem] object-contain object-center p-2 transition duration-300 group-hover:scale-105"
                     />
                 </div>
             </div>

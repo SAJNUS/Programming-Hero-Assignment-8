@@ -7,7 +7,7 @@
         "rating": 4.9,
         "stock": 18,
         "description": "Lightweight polarized shades designed for bright beach days and long summer drives.",
-        "image": "/images/products/uv-protection-sunglasses.svg",
+        "image": "/images/products/UV Protection Sunglasses.jpg",
         "category": "Accessories",
         "featured": true
     },
@@ -19,7 +19,7 @@
         "rating": 4.7,
         "stock": 34,
         "description": "Breathable cotton tee with a relaxed fit and fresh seasonal color blocking.",
-        "image": "/images/products/summer-t-shirt.svg",
+        "image": "/images/products/Summer T-Shirt.jpg",
         "category": "Apparel",
         "featured": true
     },
@@ -31,7 +31,7 @@
         "rating": 4.8,
         "stock": 52,
         "description": "Broad-spectrum SPF care with a smooth, non-greasy finish for everyday protection.",
-        "image": "/images/products/sunscreen-lotion.svg",
+        "image": "/images/products/Sunscreen Lotion.jpg",
         "category": "Wellness",
         "featured": true
     },
@@ -43,7 +43,7 @@
         "rating": 4.6,
         "stock": 27,
         "description": "A wide-brim essential that keeps the sun away while finishing the look cleanly.",
-        "image": "/images/products/beach-hat.svg",
+        "image": "/images/products/Beach Hat.jpg",
         "category": "Accessories"
     },
     {
@@ -54,7 +54,7 @@
         "rating": 4.7,
         "stock": 15,
         "description": "Cushioned sandals with a modern silhouette for all-day warm-weather comfort.",
-        "image": "/images/products/summer-sandals.svg",
+        "image": "/images/products/Summer Sandals.jpg",
         "category": "Footwear"
     },
     {
@@ -65,7 +65,7 @@
         "rating": 4.9,
         "stock": 12,
         "description": "Roomy, durable, and ready for towels, snacks, and a full seaside day trip.",
-        "image": "/images/products/beach-travel-bag.svg",
+        "image": "/images/products/Beach Travel Bag.jpg",
         "category": "Travel"
     }
 ]
